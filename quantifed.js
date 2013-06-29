@@ -36,16 +36,16 @@ server.on('request', function(_, response) {
   };
 
   // Fetch all rations.
-	var query = new Kinvey.Query();
-	//query.equal('ITEM', 'Snack Bread, Wheat');
-	query.on('ITEM').equal('Snack Bread, Wheat');
+	var myQuery = new Kinvey.Query();
+	myQuery.on('ITEMTYPE').equal('asdf'); //Intentionally doesn't match any results.  Shows query working.
 
-  var bookCollection = new Kinvey.Collection('rations', { query: query });
-  bookCollection.fetch({
-    success: function(books) {
+  var rations = new Kinvey.Collection('rations');
+  rations.setQuery(myQuery);
+  rations.fetch({
+    success: function(ration) {
 		// Merge result sets, and pass to response.
 		var body = JSON.stringify({
-		books: books
+		ration: ration
 		});
 
 		// Write response.
