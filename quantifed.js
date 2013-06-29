@@ -32,7 +32,7 @@ console.log('Listening on port 8080');
 
 
 // ----- LabRequest -----
-app.get('/rest/lab-requests', function (req, res) {
+app.get('/rest/load-item-type', function (req, res) {
     'use strict';
 	
 	// Define the error handler for this request.
@@ -46,21 +46,25 @@ app.get('/rest/lab-requests', function (req, res) {
 
   // Fetch all rations.
 	var myQuery = new Kinvey.Query();
-	myQuery.on('ITEMTYPE').equal('Snack'); //Intentionally doesn't match any results.  Shows query working.
+	myQuery.on('ITEMTYPE').equal(req.query.itemType);
 
+	
+    /*var myBirthdayParty = new Kinvey.Entity({}, 'rations');
+    myBirthdayParty.load('51ce3607d9404fe00a0002ec', {
+    success: function(ration) {
+		res.setHeader('Content-Type', 'application/json');
+		return res.send(ration.toJSON(true));
+    },
+    error: function(e) {
+    // Failed to fetch birthday-party-id.
+    // e holds information about the nature of the error.
+    }
+    });*/
+	
   var rations = new Kinvey.Collection('rations');
   rations.setQuery(myQuery);
   rations.fetch({
     success: function(ration) {
-/*		// Merge result sets, and pass to response.
-		var body = JSON.stringify({
-		ration: ration
-		});
-
-		// Write response.
-		response.writeHead(200, headers(body));
-		response.write(body);
-		response.end();*/
 		res.setHeader('Content-Type', 'application/json');
 		return res.send(ration);
     },
