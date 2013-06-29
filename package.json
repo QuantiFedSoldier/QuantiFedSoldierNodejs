@@ -1,7 +1,9 @@
 {
-  "name": "Union-Nodejs",
+  "name": "QuantiFedSoldier-Nodejs",
   "version": "1.0.0",
   "dependencies": {
-    "kinvey": "~0.9"
+    "kinvey": "~0.9",
+	"express": "3.x",
+    "underscore": "1.4.x"
   }
 }
